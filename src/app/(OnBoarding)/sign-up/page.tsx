@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-export default function Home() {
+export default function SignUpPage() {
 	return (
 		<div>
-			<h1>Home</h1>
+			<div>Sign Up</div>
 			<Link href="/login">Go to Login</Link>
 		</div>
 	);
