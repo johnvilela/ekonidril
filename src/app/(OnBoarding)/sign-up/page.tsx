@@ -4,7 +4,7 @@ import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServer } from '@/services/supabase/server';
 
-export default function AuthPage() {
+export default function SignUpPage() {
 	const signUp = async (formData: FormData) => {
 		'use server';
 

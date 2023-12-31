@@ -1,29 +1,30 @@
 import Link from 'next/link';
-import { Textfield } from '@/components/Inputs/Textfield';
-import { Button } from '@/components/Inputs/Button';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServer } from '@/services/supabase/server';
+import { Textfield } from '@/components/Inputs/Textfield';
+import { Button } from '@/components/Inputs/Button';
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
 	async function signIn(formData: FormData) {
 		'use server';
 
+		const origin = headers().get('origin');
 		const email = formData.get('email') as string;
-		const password = formData.get('password') as string;
 		const cookieStore = cookies();
 		const supabase = createSupabaseServer(cookieStore);
 
-		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password,
+		const { error } = await supabase.auth.resetPasswordForEmail(email, {
+			redirectTo: `${origin}/reset-password`,
 		});
 
 		if (error) {
-			return redirect('/login?message=Could not authenticate user');
+			return redirect('/forgot-password?message=Could not find user');
 		}
 
-		return redirect('/app/dashboard');
+		return redirect(
+			'/forgot-password?message=Check your email for a reset link',
+		);
 	}
 
 	return (
@@ -31,14 +32,7 @@ export default function LoginPage() {
 			<div className="max-w-7xl">
 				<form className="flex flex-col gap-2" action={signIn}>
 					<Textfield placeholder="email" type="email" name="email" />
-					<Textfield placeholder="password" type="password" name="password" />
 					<Button type="submit">LOG IN</Button>
-					<Link href="/sign-up" className="p-2 text-center">
-						CREATE ACCOUNT
-					</Link>
-					<Link href="/forgot-password" className="p-2 text-center">
-						FORGOT PASSWORD
-					</Link>
 				</form>
 			</div>
 		</main>
