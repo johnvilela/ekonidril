@@ -1,8 +1,9 @@
-import { Textfield } from '@/components/Inputs/Textfield';
-import { Button } from '@/components/Inputs/Button';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServer } from '@/services/supabase/server';
+import { Input } from '@nextui-org/input';
+import { Button } from '@nextui-org/button';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export default function SignUpPage() {
 	const signUp = async (formData: FormData) => {
@@ -30,15 +31,13 @@ export default function SignUpPage() {
 	};
 
 	return (
-		<main className="w-screen h-full grid place-items-center p-4 bg-gray-200">
-			<div className="max-w-7xl">
-				<form className="flex flex-col gap-2" action={signUp}>
-					<Textfield placeholder="name" type="text" name="name" />
-					<Textfield placeholder="email" type="email" name="email" />
-					<Textfield placeholder="password" type="password" name="password" />
-					<Button type="submit">CREATE</Button>
-				</form>
-			</div>
-		</main>
+		<form className="flex flex-col gap-2" action={signUp}>
+			<Input placeholder="name" type="text" name="name" />
+			<Input placeholder="email" type="email" name="email" />
+			<Input placeholder="password" type="password" name="password" />
+			<SubmitButton color="primary" type="submit">
+				CREATE
+			</SubmitButton>
+		</form>
 	);
 }

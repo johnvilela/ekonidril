@@ -1,9 +1,11 @@
-import Link from 'next/link';
-import { Textfield } from '@/components/Inputs/Textfield';
-import { Button } from '@/components/Inputs/Button';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServer } from '@/services/supabase/server';
+import { Input } from '@nextui-org/input';
+import { Button } from '@nextui-org/button';
+import { Link as NextUiLink } from '@nextui-org/link';
+import Link from 'next/link';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export default function LoginPage() {
 	async function signIn(formData: FormData) {
@@ -27,30 +29,23 @@ export default function LoginPage() {
 	}
 
 	return (
-		<main className="w-screen h-full grid place-items-center p-4 bg-gray-200">
-			<div className="max-w-7xl">
-				<form className="flex flex-col gap-2" action={signIn}>
-					<Textfield
-						label="email"
-						placeholder="email"
-						type="email"
-						id="email"
-					/>
-					<Textfield
-						label="password"
-						placeholder="password"
-						type="password"
-						id="password"
-					/>
-					<Button type="submit">LOG IN</Button>
-					<Link href="/sign-up" className="p-2 text-center">
-						CREATE ACCOUNT
-					</Link>
-					<Link href="/forgot-password" className="p-2 text-center">
-						FORGOT PASSWORD
-					</Link>
-				</form>
-			</div>
-		</main>
+		<form className="flex flex-col gap-2" action={signIn}>
+			<Input label="email" type="email" name="email" />
+			<Input label="password" type="password" name="password" />
+			<NextUiLink
+				href="/forgot-password"
+				color="primary"
+				size="sm"
+				className="text-right block mb-4"
+			>
+				Forgot password?
+			</NextUiLink>
+			<SubmitButton color="primary" type="submit">
+				LOG IN
+			</SubmitButton>
+			<Button as={Link} href="/sign-up" color="secondary" variant="light">
+				CREATE ACCOUNT
+			</Button>
+		</form>
 	);
 }

@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServer } from '@/services/supabase/server';
-import { Textfield } from '@/components/Inputs/Textfield';
-import { Button } from '@/components/Inputs/Button';
+import { Input } from '@nextui-org/input';
+import { Button } from '@nextui-org/button';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export default function ForgotPasswordPage() {
 	async function signIn(formData: FormData) {
@@ -28,13 +28,11 @@ export default function ForgotPasswordPage() {
 	}
 
 	return (
-		<main className="w-screen h-full grid place-items-center p-4 bg-gray-200">
-			<div className="max-w-7xl">
-				<form className="flex flex-col gap-2" action={signIn}>
-					<Textfield placeholder="email" type="email" name="email" />
-					<Button type="submit">LOG IN</Button>
-				</form>
-			</div>
-		</main>
+		<form className="flex flex-col gap-2" action={signIn}>
+			<Input placeholder="email" type="email" name="email" />
+			<SubmitButton color="primary" type="submit">
+				LOG IN
+			</SubmitButton>
+		</form>
 	);
 }
