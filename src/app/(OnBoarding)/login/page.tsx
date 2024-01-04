@@ -30,8 +30,18 @@ export default function LoginPage() {
 		<main className="w-screen h-full grid place-items-center p-4 bg-gray-200">
 			<div className="max-w-7xl">
 				<form className="flex flex-col gap-2" action={signIn}>
-					<Textfield placeholder="email" type="email" name="email" />
-					<Textfield placeholder="password" type="password" name="password" />
+					<Textfield
+						label="email"
+						placeholder="email"
+						type="email"
+						id="email"
+					/>
+					<Textfield
+						label="password"
+						placeholder="password"
+						type="password"
+						id="password"
+					/>
 					<Button type="submit">LOG IN</Button>
 					<Link href="/sign-up" className="p-2 text-center">
 						CREATE ACCOUNT
